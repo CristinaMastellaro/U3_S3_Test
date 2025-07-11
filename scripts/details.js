@@ -20,15 +20,19 @@ fetch(endpoint, {
     }
   })
   .then((prod) => {
+    document.getElementById("spinner").classList.add("d-none");
     document.getElementById("name").innerText = prod.name;
     document.getElementById("description").innerText = prod.description;
     document.getElementById("price").innerText = prod.price + "€";
     document.getElementById("brand").innerText = prod.brand;
     document.getElementById("imageUrl").setAttribute("src", prod.imageUrl);
   })
-  .catch((err) =>
-    alert(
-      "Non siamo riusciti a caricare i dettagli: la chiamata al server non è partita " +
-        err
-    )
-  );
+
+  .catch((err) => {
+    document.getElementById("spinner").classList.add("d-none");
+    document.getElementById("imageUrl").classList.add("d-none");
+    document.getElementById("errorContainer").classList.remove("d-none");
+    document.getElementById("errorMessage").innerText =
+      "Non siamo riusciti a caricare i dettagli: la chiamata al server non è partita. " +
+      err;
+  });

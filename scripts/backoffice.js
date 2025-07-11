@@ -2,7 +2,6 @@ const form = document.getElementById("formMusic");
 let endpoint = "https://striveschool-api.herokuapp.com/api/product";
 const queryParams = new URLSearchParams(location.search);
 const searchId = queryParams.get("id");
-// console.log("searchId", searchId);
 
 const modifyButton = document.getElementById("modify");
 const deleteButton = document.getElementById("delete");
@@ -13,12 +12,16 @@ backButton.addEventListener("click", () => location.assign("./homepage.html"));
 
 let methodToUse;
 
+// Per distinguere la chiamata PUT dalla POST
+
 if (searchId) {
   methodToUse = "PUT";
   endpoint += `/${searchId}`;
   modifyButton.classList.remove("d-none");
   deleteButton.classList.remove("d-none");
   saveButton.classList.add("d-none");
+
+  // Per riempire il form con i valori già presenti
 
   fetch(endpoint, {
     headers: {
@@ -31,7 +34,8 @@ if (searchId) {
         return res.json();
       } else {
         throw new Error(
-          "C'è stato un errore durante la chiamata al server, non siamo riusciti a caricare i dati del prodotto"
+          "C'è stato un errore durante la chiamata al server, non siamo riusciti a caricare i dati del prodotto. Status code: " +
+            res.status
         );
       }
     })
@@ -42,11 +46,12 @@ if (searchId) {
       document.getElementById("imageUrl").value = prod.imageUrl;
       document.getElementById("price").value = prod.price;
     })
-    .catch((err) =>
-      alert(
-        "Non siamo riusciti a recuperare i dati del prodotto selezionato " + err
-      )
-    );
+    .catch((err) => {
+      document.getElementById("errorContainer").classList.remove("d-none");
+      document.getElementById("errorMessage").innerText =
+        "Non siamo riusciti a recuperare i dati del prodotto selezionato. " +
+        err;
+    });
 } else {
   methodToUse = "POST";
 }
@@ -61,9 +66,9 @@ class Product {
   }
 }
 
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
+// // Funzione per modificare/creare un prodotto: verrà utilizzato più volte
 
+const callPutOrPost = function () {
   const nameInput = document.getElementById("nameMusic");
   const authorInput = document.getElementById("author");
   const descriptionInput = document.getElementById("description");
@@ -89,7 +94,6 @@ form.addEventListener("submit", (e) => {
   })
     .then((res) => {
       if (res.ok) {
-        alert("Operazione completata!");
         if (methodToUse === "POST") {
           nameInput.value = "";
           descriptionInput.value = "";
@@ -100,17 +104,42 @@ form.addEventListener("submit", (e) => {
         }
       } else {
         throw new Error(
-          "C'è stato un errore durante il contatto con il server"
+          "C'è stato un errore durante il contatto con il server. Status code: " +
+            res.status
         );
       }
     })
-    .catch((err) =>
-      console.log("Non siamo riusciti a contattare il server", err)
-    );
+    .catch((err) => {
+      document.getElementById("errorContainer").classList.remove("d-none");
+      document.getElementById("errorMessage").innerText =
+        "Non siamo riusciti a contattare il server. " + err;
+    });
+};
+
+// Quando si submitta il form o si crea direttamente un nuovo prodotto oppure apparirà un messaggio di conferma per modificare.
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  if (methodToUse === "POST") {
+    callPutOrPost();
+  } else {
+    document.getElementById("messageModify").classList.toggle("d-none");
+    document.getElementById("containerButtons").classList.add("flex-column");
+  }
 });
 
 // Per eliminare un prodotto
+
 deleteButton.addEventListener("click", () => {
+  document.getElementById("messageDelete").classList.remove("d-none");
+});
+
+const doNotDelete = document.getElementById("doNotDelete");
+const confirmDelete = document.getElementById("confirmDelete");
+
+confirmDelete.addEventListener("click", () => {
+  document.getElementById("messageDelete").classList.toggle("d-none");
   fetch(endpoint, {
     method: "DELETE",
     headers: {
@@ -124,11 +153,51 @@ deleteButton.addEventListener("click", () => {
         location.assign("./homepage.html");
       } else {
         throw new Error(
-          "C'è stato un problema nel contatto con il server, non siamo riusciti a cancellare il prodotto"
+          "C'è stato un problema nel contatto con il server, non siamo riusciti a cancellare il prodotto. Status code: " +
+            res.status
         );
       }
     })
-    .catch((err) =>
-      alert("Ci dispiace, non siamo riusciti a cancellare il prodotto " + err)
-    );
+    .catch((err) => {
+      document.getElementById("errorContainer").classList.remove("d-none");
+      document.getElementById("errorMessage").innerText =
+        "Ci dispiace, non siamo riusciti a cancellare il prodotto. " + err;
+    });
+});
+
+doNotDelete.addEventListener("click", () => {
+  document.getElementById("messageDelete").classList.toggle("d-none");
+  document.getElementById("warningContainer").classList.remove("d-none");
+  document.getElementById("warningMessage").innerText =
+    "Il prodotto non è ancora stato eliminato";
+  setTimeout(() => {
+    document.getElementById("warningContainer").classList.add("d-none");
+  }, 5000);
+});
+
+// Modificare un prodotto
+
+const doNotModify = document.getElementById("doNotModify");
+const confirmModify = document.getElementById("confirmModify");
+
+confirmModify.addEventListener("click", () => {
+  document.getElementById("messageModify").classList.toggle("d-none");
+  callPutOrPost();
+  document.getElementById("containerButtons").classList.remove("flex-column");
+  document.getElementById("successContainer").classList.remove("d-none");
+  document.getElementById("successMessage").innerText = "Prodotto modificato!";
+  setTimeout(() => {
+    document.getElementById("successContainer").classList.add("d-none");
+  }, 5000);
+});
+
+doNotModify.addEventListener("click", () => {
+  document.getElementById("messageModify").classList.toggle("d-none");
+  document.getElementById("warningContainer").classList.remove("d-none");
+  document.getElementById("warningMessage").innerText =
+    "Prodotto non modificato";
+  document.getElementById("containerButtons").classList.remove("flex-column");
+  setTimeout(() => {
+    document.getElementById("warningContainer").classList.add("d-none");
+  }, 5000);
 });

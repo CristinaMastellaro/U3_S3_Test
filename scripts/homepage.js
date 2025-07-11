@@ -16,6 +16,7 @@ fetch(endpoint, {
   })
   .then((prods) => {
     console.log(prods);
+    document.getElementById("spinner").classList.add("d-none");
     prods.forEach((prod) => {
       rowCards.innerHTML += `
       <div class="col col-12 col-sm-6 col-md-4 col-lg-3">
@@ -24,8 +25,8 @@ fetch(endpoint, {
   <div class="card-body flex-grow-1 d-flex flex-column justify-content-between">
   <div class="pb-3">  
   <h5 class="card-title" onclick="details('${prod._id}')">${prod.name}</h5>
-    <p class="card-text">Artista: ${prod.brand}</p>
-    <div class="mb-3">
+    <p class="card-text mb-1">Artista: ${prod.brand}</p>
+    <div class="mb-1">
     <p class="card-text mb-0">Descrizione:</p>
     <p class="card-text description">${prod.description}</p>
     </div>
@@ -36,7 +37,12 @@ fetch(endpoint, {
 </div>`;
     });
   })
-  .catch((err) => alert("Non siamo riusciti a caricare i prodotti " + err));
+  .catch((err) => {
+    document.getElementById("spinner").classList.add("d-none");
+    document.getElementById("errorContainer").classList.remove("d-none");
+    document.getElementById("errorMessage").innerText =
+      "Non siamo riusciti a caricare i prodotti. " + err;
+  });
 
 const modify = (id) => location.assign(`./backoffice.html?id=${id}`);
 
