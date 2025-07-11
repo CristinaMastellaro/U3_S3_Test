@@ -101,6 +101,14 @@ const callPutOrPost = function () {
           authorInput.value = "";
           imageUrlInput.value = "";
           document.getElementById("acceptConditions").checked = false;
+          document
+            .getElementById("successContainer")
+            .classList.remove("d-none");
+          document.getElementById("successMessage").innerText =
+            "Prodotto creato!";
+          setTimeout(() => {
+            document.getElementById("successContainer").classList.add("d-none");
+          }, 5000);
         }
       } else {
         throw new Error(
@@ -133,6 +141,7 @@ form.addEventListener("submit", (e) => {
 
 deleteButton.addEventListener("click", () => {
   document.getElementById("messageDelete").classList.remove("d-none");
+  document.getElementById("containerButtons").classList.add("flex-column");
 });
 
 const doNotDelete = document.getElementById("doNotDelete");

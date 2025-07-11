@@ -26,6 +26,7 @@ fetch(endpoint, {
     document.getElementById("price").innerText = prod.price + "€";
     document.getElementById("brand").innerText = prod.brand;
     document.getElementById("imageUrl").setAttribute("src", prod.imageUrl);
+    document.getElementById("imageUrl").classList.remove("d-none");
   })
 
   .catch((err) => {
