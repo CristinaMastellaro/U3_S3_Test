@@ -133,7 +133,6 @@ form.addEventListener("submit", (e) => {
     callPutOrPost();
   } else {
     document.getElementById("messageModify").classList.toggle("d-none");
-    document.getElementById("containerButtons").classList.add("flex-column");
   }
 });
 
@@ -141,7 +140,6 @@ form.addEventListener("submit", (e) => {
 
 deleteButton.addEventListener("click", () => {
   document.getElementById("messageDelete").classList.remove("d-none");
-  document.getElementById("containerButtons").classList.add("flex-column");
 });
 
 const doNotDelete = document.getElementById("doNotDelete");
@@ -192,7 +190,6 @@ const confirmModify = document.getElementById("confirmModify");
 confirmModify.addEventListener("click", () => {
   document.getElementById("messageModify").classList.toggle("d-none");
   callPutOrPost();
-  document.getElementById("containerButtons").classList.remove("flex-column");
   document.getElementById("successContainer").classList.remove("d-none");
   document.getElementById("successMessage").innerText = "Prodotto modificato!";
   setTimeout(() => {
@@ -205,7 +202,6 @@ doNotModify.addEventListener("click", () => {
   document.getElementById("warningContainer").classList.remove("d-none");
   document.getElementById("warningMessage").innerText =
     "Prodotto non modificato";
-  document.getElementById("containerButtons").classList.remove("flex-column");
   setTimeout(() => {
     document.getElementById("warningContainer").classList.add("d-none");
   }, 5000);
