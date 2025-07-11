@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vendita online</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+      crossorigin="anonymous"
+    />
+    <style>
+      @media screen and (min-width: 768px) {
+        .card {
+          height: 500px;
+        }
+
+        .description {
+          height: 40%;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header id="su">
+      <nav class="navbar navbar-expand-lg bg-warning">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#"
+            ><img
+              src="https://static.wixstatic.com/media/7e97c8_3bc63de1a12740d2b0cfa4e472c16fac~mv2.png/v1/fill/w_164,h_126,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Soundlincs%20Logo%202025%20-%20Primary%20-%20Colour%20-%2071px.png"
+              alt="Logo negozio"
+              style="height: 70px"
+          /></a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-secondary" href="./backoffice.html"
+                  >Back-office</a
+                >
+              </li>
+            </ul>
+            <!-- <form class="d-flex" role="search">
+              <input
+                class="form-control me-2"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+              />
+              <button class="btn btn-outline-success" type="submit">
+                Search
+              </button>
+            </form> -->
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main class="mb-3">
+      <div class="text-center my-4 bg-warning-subtle pt-5 pb-3">
+        <h1 class="mb-4">Musica</h1>
+        <h5>Compra gli album e i singoli che più ti piacciono!</h5>
+        <p>Il ricavato sarà dato in beneficienza</p>
+      </div>
+      <section class="container">
+        <div class="row g-3" id="rowCards">
+          <!-- 
+                row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4
+          <div class="card" style="width: 18rem;">
+  <img src="..." class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+    <button href="#" class="btn btn-primary">Go somewhere</button>
+  </div>
+</div> -->
+        </div>
+      </section>
+    </main>
+    <footer class="bg-dark p-4">
+      <div
+        class="d-flex flex-column flex-sm-row align-items-center justify-content-sm-around"
+      >
+        <a href="#" class="text-light text-decoration-none">Privacy</a>
+        <a href="#" class="text-light text-decoration-none">Lavora con noi</a>
+        <a href="#" class="text-light text-decoration-none">Contatti</a>
+      </div>
+      <p class="text-light-emphasis px-5 my-3 text-center">
+        © Nessun prodotto di questa pagina è coperto da copyright
+      </p>
+      <div class="text-center mt-3">
+        <a href="#su" class="text-light">Torna su</a>
+      </div>
+    </footer>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./scripts/homepage.js"></script>
+  </body>
+</html>
