@@ -25,12 +25,12 @@ fetch(endpoint, {
   <div class="card-body flex-grow-1 d-flex flex-column justify-content-between">
   <div class="pb-3">  
   <h5 class="card-title" onclick="details('${prod._id}')">${prod.name}</h5>
-    <p class="card-text mb-1">Artista: ${prod.brand}</p>
-    <div class="mb-1">
+    <p class="card-text mb-1" onclick="details('${prod._id}')">Artista: ${prod.brand}</p>
+    <div class="mb-1" onclick="details('${prod._id}')">
     <p class="card-text mb-0">Descrizione:</p>
     <p class="card-text description">${prod.description}</p>
     </div>
-    <p class="card-text">Prezzo: ${prod.price}€</p></div>
+    <p class="card-text" onclick="details('${prod._id}')">Prezzo: ${prod.price}€</p></div>
     <button class="btn btn-success" onclick="modify('${prod._id}')">Modifica</button>
   </div>
 </div>
